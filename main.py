@@ -141,7 +141,7 @@ def generate_audiop2():
         volume_chat = int(volume_chat)  # 尝试将 volume_chat 转换为整数
     except ValueError:
         volume_chat = 0  # 如果转换失败，则将 volume_chat 设置为 0
-    volume_chat = str(volume_chat) + "%"
+    volume_chat = "+" + str(volume_chat) + "%"
 
     # 使用 edge_tts 生成音频
     audio_stream = io.BytesIO()
