@@ -1,29 +1,48 @@
 # legado-edge-tts
-edge大声朗读微软TTS服务, 在阅读APP中导入语音引擎方式收听微软TTS / Edge大声朗读 也可以在浏览器直接访问自动下载的.mp3 文件流
 
+edge 大声朗读微软 TTS 服务, 在阅读 APP 中导入语音引擎方式收听微软 TTS / Edge 大声朗读 也可以在浏览器直接访问自动下载的.mp3 文件流
 
-# 方式一 直接运行,需要python环境
-```bash
+## 方式一 直接运行,需要 python 环境
+
+```sh
 pip install Flask edge-tts
 
 python3 main.py
 
 
 # `GET接口是 /ra  和 POST接口 /rap
-# 浏览器访问: 
+# 浏览器访问:
 http://127.0.0.1:1233/api/ra?text=hello&rate=25
 
-# 阅读导入URL: 
+# 阅读导入URL:
 http://127.0.0.1:1233/api/rap,{"method": "POST", "body": "text={{encodeURI(speakText)}}&rate={{speakSpeed}}"}
+
+# 阅读导入URL 支持对话&旁白切换音色   感谢 https://github.com/retaw106 贡献
+http://127.0.0.1:1233/api/rap2,{"method": "POST", "body": "text={{encodeURI(speakText)}}&rate={{speakSpeed}}"}
 
 # 在阅读内开启 "流式播放音频" 更好
 # 语速最好设置为2.5     >2.5 就读的快， < 2.5 就读的慢
 ```
-# 方式二 使用pm2运行, 需要node环境
 
-```bash 
+## /rap + /ra 其他可选参数
+
+| 参数  | 默认值               |
+| ----- | -------------------- |
+| voice | zh-CN-XiaoxiaoNeural |
+
+## /rap2 其他可选参数
+
+| 参数        | 默认值               | 描述     |
+| ----------- | -------------------- | -------- |
+| voice       | zh-CN-XiaoxiaoNeural | 旁白音色 |
+| voice_chat  | zh-CN-YunxiNeural    | 对话音色 |
+| volume_chat | 0                    | 对话音量 |
+
+## 方式二 使用 pm2 运行, 需要 node 环境
+
+```bash
 # 如果没有node 需要先安装node, 推荐使用nvm  https://github.com/nvm-sh/nvm
-node -v 
+node -v
 # 安装pm2 至全局
 npm install pm2 -g
 # 生成启动脚本
@@ -35,4 +54,5 @@ pm2 start tts.sh
 ```
 
 # 基于
+
 https://github.com/rany2/edge-tts
