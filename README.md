@@ -5,7 +5,7 @@ edge 大声朗读微软 TTS 服务, 在阅读 APP 中导入语音引擎方式收
 ## 方式一 直接运行,需要 python 环境
 
 ```sh
-pip install Flask edge-tts
+pip3 install Flask edge-tts
 
 python3 main.py
 
