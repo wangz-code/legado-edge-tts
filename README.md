@@ -15,10 +15,10 @@ python3 main.py
 http://127.0.0.1:1233/api/ra?text=hello&rate=25
 
 # 阅读导入URL:
-http://127.0.0.1:1233/api/rap,{"method": "POST", "body": "text={{encodeURI(speakText)}}&rate={{speakSpeed}}"}
+http://127.0.0.1:1233/api/rap,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}"}
 
 # 阅读导入URL 支持对话&旁白切换音色   感谢 https://github.com/retaw106 贡献
-http://127.0.0.1:1233/api/rap2,{"method": "POST", "body": "text={{encodeURI(speakText)}}&rate={{speakSpeed}}"}
+http://127.0.0.1:1233/api/rap2,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}"}
 
 # 在阅读内开启 "流式播放音频" 更好
 # 语速最好设置为2.5     >2.5 就读的快， < 2.5 就读的慢

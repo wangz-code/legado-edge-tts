@@ -4,17 +4,26 @@ from flask import Flask, send_file, request, Response
 import edge_tts
 import io
 import re
+from urllib.parse import unquote
 
 app = Flask(__name__)
+
+
+def remove_special_characters(text):
+    text = unquote(text)
+    # 定义正则表达式，保留字母、数字、中文、空格和常见的标点符号
+    pattern = r'[^\w\s\u4e00-\u9fff，。！？；：、（）《》【】“”‘’]'
+    # 使用正则表达式替换特殊符号为空字符串
+    cleaned_text = re.sub(pattern, '', text)
+    return cleaned_text
 
 
 @app.route("/api/ra", methods=["GET"])
 def generate_audio():
     # 从查询参数中获取 text 和 voice
-    text = request.args.get("text", default="说点什么吧", type=str)
+    text = remove_special_characters(request.args.get("text", default="说点什么吧", type=str))
     voice = request.args.get("voice", default="zh-CN-XiaoxiaoNeural", type=str)
     rate = request.args.get("rate", default="0")  # 默认值为 0%
-
     centerRate = 25  # 阅读的语速中间值
     try:
         rate_value = int(rate)  # 尝试将 rate 转换为整数
@@ -47,7 +56,7 @@ def generate_audio():
 @app.route("/api/rap", methods=["POST"])
 def generate_audiop():
     # 从表单数据中获取 text 和 voice
-    text = request.form.get("text", default="")
+    text = remove_special_characters(request.form.get("text", default=""))
     voice = request.form.get("voice", default="zh-CN-XiaoxiaoNeural")
     rate = request.form.get("rate", default="0")  # 默认值为 0%
     centerRate = 25  # 阅读的语速中间值
@@ -121,7 +130,7 @@ def split_chat(text):
 @app.route("/api/rap2", methods=["POST"])
 def generate_audiop2():
     # 从表单数据中获取 text 和 voice
-    text = request.form.get("text", default="")
+    text = remove_special_characters(request.form.get("text", default=""))
     voice = request.form.get("voice", default="zh-CN-XiaoxiaoNeural")  # 旁白
     voice_chat = request.form.get("voice_chat", default="zh-CN-YunxiNeural")  # 对话
     volume_chat = request.form.get("volume_chat", default="0")  # 对话的音量调整
