@@ -2,6 +2,9 @@
 
 edge 大声朗读微软 TTS 服务, 在阅读 APP 中导入语音引擎方式收听微软 TTS / Edge 大声朗读 也可以在浏览器直接访问自动下载的.mp3 文件流
 
+## 新增Fish Speech TTS  
+体验 地址 http://wz.djgo.cc:2334   仅白天开机,晚上睡觉会关机, 初步感觉比不过 edgetts
+
 ## 方式一 直接运行,需要 python 环境
 
 ```sh
