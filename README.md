@@ -28,7 +28,7 @@ http://127.0.0.1:1233/api/rap2,{"method": "POST", "body": "text={{encodeURICompo
 ```
 
 
-## APP添加朗读引擎教程  📢注意点击朗读引擎页面的 " + " 号添加, 不是更多 祝大家玩的开心
+## APP添加朗读引擎  📢注意点击页面的"+"号添加 祝大家玩的开心!
 ![detail.png](https://raw.githubusercontent.com/wangz-code/legado-edge-tts/main/demo.gif)
 
 
