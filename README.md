@@ -27,6 +27,11 @@ http://127.0.0.1:1233/api/rap2,{"method": "POST", "body": "text={{encodeURICompo
 # 语速最好设置为2.5     >2.5 就读的快， < 2.5 就读的慢
 ```
 
+
+## APP添加朗读引擎教程  📢注意点击朗读引擎页面的 " + " 号添加, 不是更多 祝大家玩的开心
+![detail.png](https://raw.githubusercontent.com/wangz-code/legado-edge-tts/main/demo.gif)
+
+
 ## /rap + /ra 其他可选参数
 
 | 参数  | 默认值               |
