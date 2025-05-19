@@ -1,6 +1,6 @@
 # legado-edge-tts
 
-edge 大声朗读微软 TTS 服务, 在阅读 APP 中导入语音引擎方式收听微软 TTS / Edge 大声朗读 也可以在浏览器直接访问自动下载的.mp3 文件流
+edge 大声朗读微软 TTS 服务, 在阅读 APP 中添加配置语音引擎方式收听微软 TTS / Edge 大声朗读 也可以在浏览器直接访问自动下载的.mp3 文件流
 
 ## 新增Fish Speech TTS  
 体验 地址 http://wz.djgo.cc:2334 仅白天开机,晚上会关机睡觉太吵, 初步感觉比不过edge但是克隆音色很有意思, 随便一两句话就能对应的音色
@@ -17,10 +17,10 @@ python3 main.py
 # 浏览器访问:
 http://127.0.0.1:1233/api/ra?text=hello&rate=25
 
-# 阅读导入URL:
+# 阅读内朗读引擎配置url
 http://127.0.0.1:1233/api/rap,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}"}
 
-# 阅读导入URL 支持对话&旁白切换音色   感谢 https://github.com/retaw106 贡献
+# 阅读内朗读引擎配置url 支持对话&旁白切换音色   感谢 https://github.com/retaw106 贡献
 http://127.0.0.1:1233/api/rap2,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}"}
 
 # 在阅读内开启 "流式播放音频" 更好
