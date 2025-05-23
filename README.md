@@ -2,8 +2,8 @@
 
 edge 大声朗读微软 TTS 服务, 在阅读 APP 中添加配置语音引擎方式收听微软 TTS / Edge 大声朗读 也可以在浏览器直接访问自动下载的.mp3 文件流
 
-## 可单机部署的TTS  https://github.com/fishaudio/fish-speech
-体验地址 https://tts.djgo.cc 或 https://wz.djgo.cc:2334 白天开机,晚上关机, 初步感觉比不过edge但是克隆音色很有意思, 随便一两句话就能拥有相似的音色,推理速度尚可,若听腻了edge 可以自建tts使用, 目前我找了一些 董卿,胡歌,王志文,蕊希,豆包,还有回春丹的歌唱式朗诵🤣🤣
+## 其他可单机部署的TTS 感兴趣可以了解一下  https://github.com/fishaudio/fish-speech
+体验地址 https://tts.djgo.cc 或 https://wz.djgo.cc:2334 白天开机,晚上关机, 感觉比不过edge但是克隆音色很有意思, 随便两句话就用相似的音色, 推理速度尚可,若听腻了edge 可以自建tts使用, 目前我简单找了一些 董卿, 胡歌, 王志文, 蕊希, 豆包 还有回春丹的歌唱式朗诵🤣🤣
 
 ## 方式一 直接运行,需要 python 环境
 
