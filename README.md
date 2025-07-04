@@ -1,6 +1,8 @@
 # legado-edge-tts
 
 edge 大声朗读微软 TTS 服务, 在阅读 APP 中添加配置语音引擎方式收听微软 TTS / Edge 大声朗读 也可以在浏览器直接访问自动下载的.mp3 文件流
+## min.py 是精简版 仅有一个接口
+
 
 ## 方式一 直接运行,需要 python 环境
 
@@ -50,12 +52,8 @@ http://127.0.0.1:1233/api/rap2,{"method": "POST", "body": "text={{encodeURICompo
 node -v
 # 安装pm2 至全局
 npm install pm2 -g
-# 生成启动脚本
-echo "python3 main.py" > tts.sh
-# 增加运行权限
-chmod a+x tts.sh
 # 运行,负载均衡, 进程守护：PM2 可以始终保持应用程序运行。当应用程序崩溃时，PM2 可以自动重启它，确保服务的可用性。
-pm2 start tts.sh
+pm2 start "python3 main.py"
 ```
 
 # 基于
