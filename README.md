@@ -1,8 +1,10 @@
 # legado-edge-tts
 
 edge 大声朗读微软 TTS 服务, 在阅读 APP 中添加配置语音引擎方式收听微软 TTS / Edge 大声朗读 也可以在浏览器直接访问自动下载的.mp3 文件流
-## min.py 是精简版 仅有一个接口
 
+## 其他说明
+    - min.py 是精简版 仅有一个接口'
+    - golang-tts 是基于rany2/edge-tts 通过gpt提取核心逻辑生成的, 有屌大的老哥或许可以集成在legado app编译成二进制.so 文件,通过 jni 加载 作为内置tts使用 , 当然你也可以使用 golang api 部署在自己的vps上, 或许内存占用会低一点,效率会高一点
 
 ## 方式一 直接运行,需要 python 环境
 
