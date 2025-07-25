@@ -9,6 +9,8 @@ edge 大声朗读微软 TTS 服务, 在阅读 APP 中添加配置语音引擎方
     - 有屌大的老哥或许可以集成在legado当然你也可以使用 golang api 部署在自己的vps上, 或许内存占用会低一点,效率会高一点
     - 理论上和rany2/edge-tts 参数都一致, 一荣俱荣一损俱损
 
+## 如果没有 VPS可以使用 https://github.com/wangz-code/legado  这个阅读版本内置了 Edge大声朗读
+
 ## 方式一 直接运行,需要 python 环境
 
 ```sh
