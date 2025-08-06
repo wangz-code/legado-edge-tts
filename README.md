@@ -6,10 +6,13 @@ edge 大声朗读微软 TTS 服务, 在阅读 APP 中添加配置语音引擎方
     - min.py 是精简版 仅有一个接口'
     - golang-tts 是基于rany2/edge-tts 通过gpt提取核心逻辑生成的  app编译成二进制.so 文件,通过 jni 加载 作为内置tts使用
     - java-tts 是基于rany2/edge-tts 通过gpt提取核心逻辑生成的, 可以直接集成
-    - 有屌大的老哥或许可以集成在legado当然你也可以使用 golang api 部署在自己的vps上, 或许内存占用会低一点,效率会高一点
+    - 你也可以使用 golang api 部署在自己的vps上, 或许内存占用会低一点,效率会高一点
     - 理论上和rany2/edge-tts 参数都一致, 一荣俱荣一损俱损
 
-## 如果没有 VPS可以使用 https://github.com/wangz-code/legado  这个阅读版本内置了 Edge大声朗读
+## 如果没有VPS可以使用 https://github.com/wangz-code/legado  这个阅读内部集成了Edge大声朗读
+ - 修改音频流的暂存方式 (写硬盘=>写内存)
+ 原来是把音频缓存硬盘上会频繁执行写入和删除(有多少段落就写多少次),  我不确定频繁执行写入会不会影响寿命或许对于现代存储来说影响微乎其微😋
+ `我改成了放在内存中`, 每读完一章就释放已读完的的媒体, 修改内容参见:https://github.com/gedoor/legado/pull/5304
 
 ## 方式一 直接运行,需要 python 环境
 
