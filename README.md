@@ -9,7 +9,7 @@ edge 大声朗读微软 TTS 服务, 在阅读 APP 中添加配置语音引擎方
     - 你也可以使用 golang api 部署在自己的vps上, 或许内存占用会低一点,效率会高一点
     - 理论上和rany2/edge-tts 参数都一致, 一荣俱荣一损俱损
 
-## 如果没有VPS可以使用 [https://github.com/wangz-code/legado](https://github.com/wangz-code/legado-with-edgetts)  这个阅读内部集成了Edge大声朗读
+## 如果没有VPS可以使用 https://github.com/wangz-code/legado-with-edgetts 这个阅读内部集成了Edge大声朗读
  - 修改音频流的暂存方式 (写硬盘=>写内存)
  原来是把音频缓存硬盘上会频繁执行写入和删除(有多少段落就写多少次),  我不确定频繁执行写入会不会影响寿命或许对于现代存储来说影响微乎其微😋
  `我改成了放在内存中`, 每读完一章就释放已读完的的媒体, 修改内容参见:https://github.com/gedoor/legado/pull/5304
