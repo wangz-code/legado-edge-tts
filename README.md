@@ -5,7 +5,7 @@ edge 大声朗读微软 TTS 服务, 在阅读 APP 中添加配置语音引擎方
 ## 其他说明
     - min.py 是精简版 仅有一个接口'
     - golang-tts 是基于rany2/edge-tts 通过gpt提取核心逻辑生成的  app编译成二进制.so 文件,通过 jni 加载 作为内置tts使用
-    - java-tts 是基于rany2/edge-tts 通过gpt提取核心逻辑生成的, 可以直接集成
+    - java-tts 是基于rany2/edge-tts 通过gpt提取核心逻辑生成的, 直接在阅读内部集成
     - 你也可以使用 golang api 部署在自己的vps上, 或许内存占用会低一点,效率会高一点
     - 理论上和rany2/edge-tts 参数都一致, 一荣俱荣一损俱损
 

@@ -19,7 +19,7 @@ const (
 	TrustedClientToken = "6A5AA1D4EAFF4E9FB37E23D68491D6F4"
 	BaseURL            = "speech.platform.bing.com"
 	WSSPath            = "/consumer/speech/synthesize/readaloud/edge/v1"
-	SecMsGecVersion    = "1-130.0.2849.68" // 版本号示例，需同步更新
+	SecMsGecVersion    = "1-140.0.3485.14" // 版本号示例，需同步更新
 	DefaultVoice       = "zh-CN-XiaoxiaoNeural"
 )
 

@@ -16,7 +16,7 @@ public class BingSpeechSynthesizer {
     private static final String TrustedClientToken = "6A5AA1D4EAFF4E9FB37E23D68491D6F4";
     private static final String BaseURL = "speech.platform.bing.com";
     private static final String WSSPath = "/consumer/speech/synthesize/readaloud/edge/v1";
-    private static final String SecMsGecVersion = "1-130.0.2849.68";
+    private static final String SecMsGecVersion = "1-140.0.3485.14";
     private static final String DefaultVoice = "zh-CN-XiaoxiaoNeural";
 
     // DRM 相关参数（与Golang完全一致）
