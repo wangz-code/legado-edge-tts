@@ -9,6 +9,7 @@ edge 大声朗读微软 TTS 服务, 在阅读 APP 中添加配置语音引擎方
     - 你也可以使用 golang api 部署在自己的vps上, 或许内存占用会低一点,效率会高一点
     - 理论上和rany2/edge-tts 参数都一致, 一荣俱荣一损俱损 EdgeVersion=140.0.3485.14
     - 如果没有VPS部署可以使用 https://github.com/wangz-code/legado-tts 阅读内部集成了Edge大声朗读
+    - 豆包的这个随便调用几次就被拦截, 没有格局, 几分钟调用一次应该没问题,  仅供参考 不推荐
 
 
 ## 方式一 直接运行,需要 python 环境
@@ -26,13 +27,15 @@ http://127.0.0.1:1233/api/ra?text=hello&rate=25
 # 阅读内朗读引擎配置url
 http://127.0.0.1:1233/api/rap,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}"}
 
+# 豆包无法顺畅朗读 仅供测试 极其容易被拦截
+http://127.0.0.1:12333/api/doubao,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}&cookie=sessionid=你的sessionid; sid_guard=你的sid_guard; uid_tt=你的uid_tt"}
+
 # 阅读内朗读引擎配置url 支持对话&旁白切换音色   感谢 https://github.com/retaw106 贡献
 http://127.0.0.1:1233/api/rap2,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}"}
 
 # 在阅读内开启 "流式播放音频" 更好
 # 语速最好设置为2.5     >2.5 就读的快， < 2.5 就读的慢
 ```
-
 
 ## APP添加朗读引擎  📢注意点击页面的"+"号添加 祝大家玩的开心!
 ![detail.png](https://raw.githubusercontent.com/wangz-code/legado-edge-tts/main/demo.gif)
@@ -64,5 +67,5 @@ pm2 start "python3 main.py"
 ```
 
 # 基于
-
 https://github.com/rany2/edge-tts
+https://github.com/callmerio/doubao-tts
