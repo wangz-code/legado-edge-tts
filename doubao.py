@@ -173,16 +173,15 @@ class DoubaoTTS:
             "real_aid": 497858,
             "pkg_type": "release_version",
             "device_id": self._device_id,
-            "pc_version": "2.46.3",
+            "pc_version": "2.50.6",
             "web_id": self._web_id,
             "tea_uuid": self._web_id,
-            "region": "",
-            "sys_region": "",
+            "region": "CN",
+            "sys_region": "CN",
             "samantha_web": 1,
             "use-olympus-account": 1,
             "web_tab_id": str(uuid.uuid4()),
         }
-        
         query = "&".join(f"{k}={v}" for k, v in params.items())
         return f"{self.WS_URL}?{query}"
     

@@ -27,7 +27,8 @@ http://127.0.0.1:1233/api/ra?text=hello&rate=25
 # 阅读内朗读引擎配置url
 http://127.0.0.1:1233/api/rap,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}"}
 
-# 豆包无法顺畅朗读 仅供测试 极其容易被拦截
+# 豆包无法顺畅朗读 仅供测试 极其容易被拦截, 貌似是频繁会被拦截, 单次长内容约 1000字每次 貌似能长一点不会拦截, 
+#  如果准备两个 key 进行切换 1A,2B 3A,4B 这样 可以大大降低拦截概率, 达到基本能用的地步
 http://127.0.0.1:12333/api/doubao,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}&cookie=sessionid=你的sessionid; sid_guard=你的sid_guard; uid_tt=你的uid_tt"}
 
 # 阅读内朗读引擎配置url 支持对话&旁白切换音色   感谢 https://github.com/retaw106 贡献
