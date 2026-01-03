@@ -4,10 +4,10 @@ edge 大声朗读微软 TTS 服务, 在阅读 APP 中添加配置语音引擎方
 
 ## 其他说明
     - min.py 是精简版 仅有一个接口'
-    - java-tts 是基于rany2/edge-tts 通过gpt提取核心逻辑生成的, 可直接在阅读内部集成
-    - DouBaoFetch.kt 是基于https://github.com/callmerio/doubao-tts 通过豆包提取核心逻辑生成的, 可直接在阅读内部集成
+    - EdgeSpeakFetch.kt 是基于[edge-tts](https://github.com/rany2/edge-tts) 通过gpt提取核心逻辑生成的, 可直接在阅读内部集成
+    - DouBaoFetch.kt 是基于[doubao-tts](https://github.com/callmerio/doubao-tts)通过豆包提取核心逻辑生成的, 可直接在阅读内部集成
     - 理论上和rany2/edge-tts 参数都一致, 一荣俱荣一损俱损 EdgeVersion=140.0.3485.14
-    - 如果没有VPS部署可以使用 https://github.com/wangz-code/legado-tts 阅读内部集成了Edge大声朗读
+    - 如果没有VPS部署可以使用 https://github.com/wangz-code/legado-tts 阅读内部集成了Edge大声朗读和豆包
     - 豆包的这个不要调用太频繁几分钟一次,基本无大碍了 问题不大
 
 
