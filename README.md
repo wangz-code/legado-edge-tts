@@ -4,12 +4,11 @@ edge 大声朗读微软 TTS 服务, 在阅读 APP 中添加配置语音引擎方
 
 ## 其他说明
     - min.py 是精简版 仅有一个接口'
-    - golang-tts 是基于rany2/edge-tts 通过gpt提取核心逻辑生成的  app编译成二进制.so 文件,通过 jni 加载 作为内置tts使用
-    - java-tts 是基于rany2/edge-tts 通过gpt提取核心逻辑生成的, 直接在阅读内部集成
-    - 你也可以使用 golang api 部署在自己的vps上, 或许内存占用会低一点,效率会高一点
+    - java-tts 是基于rany2/edge-tts 通过gpt提取核心逻辑生成的, 可直接在阅读内部集成
+    - DouBaoFetch.kt 是基于https://github.com/callmerio/doubao-tts 通过豆包提取核心逻辑生成的, 可直接在阅读内部集成
     - 理论上和rany2/edge-tts 参数都一致, 一荣俱荣一损俱损 EdgeVersion=140.0.3485.14
     - 如果没有VPS部署可以使用 https://github.com/wangz-code/legado-tts 阅读内部集成了Edge大声朗读
-    - 豆包的这个随便调用几次就被拦截, 没有格局, 几分钟调用一次应该没问题,  仅供参考 不推荐
+    - 豆包的这个不要调用太频繁几分钟一次,基本无大碍了 问题不大
 
 
 ## 方式一 直接运行,需要 python 环境
@@ -22,10 +21,10 @@ python3 main.py
 
 # `GET接口是 /ra  和 POST接口 /rap
 # 浏览器访问:
-http://127.0.0.1:1233/api/ra?text=hello&rate=25
+http://127.0.0.1:1233/api/ra?text=helloword&rate=25&voice=zh-CN-YunjianNeural
 
 # 阅读内朗读引擎配置url
-http://127.0.0.1:1233/api/rap,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}"}
+http://127.0.0.1:1233/api/rap,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}&voice=zh-CN-XiaoxiaoNeural"}
 
 # 豆包无法顺畅朗读 仅供测试 极其容易被拦截, 貌似是频繁会被拦截, 单次长内容约 1000字每次 貌似能长一点不会拦截, 
 #  如果准备两个 key 进行切换 1A,2B 3A,4B 这样 可以大大降低拦截概率, 达到基本能用的地步
@@ -48,6 +47,18 @@ http://127.0.0.1:1233/api/rap2,{"method": "POST", "body": "text={{encodeURICompo
 | ----- | -------------------- |
 | voice | zh-CN-XiaoxiaoNeural |
 
+## 常用音色 
+| 语音模型 | 性别 | 适用场景 | 风格特点 |
+| --- | --- | --- | --- |
+| zh-CN-XiaoxiaoNeural | Female | 新闻、小说 | 温和 |
+| zh-CN-XiaoyiNeural | Female | 动漫、小说 | 活泼 |
+| zh-CN-YunjianNeural | Male | 体育、小说 | 激昂 |
+| zh-CN-YunxiNeural | Male | 小说 | 活泼、阳光 |
+| zh-CN-YunxiaNeural | Male | 动漫、小说 | 可爱 |
+| zh-CN-YunyangNeural | Male | 新闻 | 专业、可靠 |
+| zh-CN-liaoning-XiaobeiNeural | Female | 方言 | 幽默 |
+| zh-CN-shaanxi-XiaoniNeural | Female | 方言 | 明快 |
+
 ## /rap2 其他可选参数
 
 | 参数        | 默认值               | 描述     |
@@ -69,4 +80,5 @@ pm2 start "python3 main.py"
 
 # 基于
 https://github.com/rany2/edge-tts
+
 https://github.com/callmerio/doubao-tts
