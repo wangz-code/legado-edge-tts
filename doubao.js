@@ -1,5 +1,5 @@
 // 1. 配置 WSS 连接地址和请求头参数
-const wssUrl = 'wss://ws-samantha.doubao.com/samantha/audio/tts?speaker=zh_female_taozi_conversation_v4_wvae_bigtts&format=aac&speech_rate=0&pitch=0&version_code=20800&language=zh&device_platform=web&aid=497858&real_aid=497858&pkg_type=release_version&device_id=7469699758161528361&pc_version=2.51.7&web_id=7469699763521390092&tea_uuid=7469699763521390092&region=CN&sys_region=CN&samantha_web=1&use-olympus-account=1&web_tab_id=a9fe655e-e99f-478f-8e72-56c5c959aeb5';
+const wssUrl = 'wss://ws-samantha.doubao.com/samantha/audio/tts?speaker=zh_female_taozi_conversation_v4_wvae_bigtts&format=aac&speech_rate=0&pitch=0&version_code=20800&language=zh&device_platform=web';
 
 // 2. 创建 WebSocket 实例（自动携带你指定的请求头）
 // 注：浏览器端 WebSocket 的请求头由浏览器自动根据环境生成，核心参数已匹配你的要求
