@@ -10,6 +10,7 @@ import random
 from pathlib import Path
 from typing import Optional, AsyncGenerator, Dict, Any
 import time
+import base64
 try:
     import websockets
 except ImportError:
@@ -19,6 +20,20 @@ except ImportError:
 def remove_special_characters(text):
     text = unquote(text)
     return re.sub(r'[^\w\s\u4e00-\u9fff，。！？；：、（）《》【】“”‘’]', '', text)
+
+def generate_16bytes_base64():
+    """
+    生成 16 字节随机数的 Base64 编码字符串（和示例格式一致）
+    返回：符合要求的 Base64 字符串（如 oBxYeqcEenrw1pL64V3ieg==）
+    """
+    # 1. 生成 16 字节随机二进制数据（UUID v4 正好是 16 字节，符合示例特征）
+    random_16bytes = uuid.uuid4().bytes
+    
+    # 2. 进行标准 Base64 编码（自动补充 == 填充符）
+    base64_str = base64.b64encode(random_16bytes).decode('utf-8')
+    
+    return base64_str
+
 
 async def generate_audio_edge(request):
     try:
@@ -143,7 +158,6 @@ SPEAKERS = {
 class DoubaoTTS:
     """豆包 TTS 客户端"""
     WS_URL = "wss://ws-samantha.doubao.com/samantha/audio/tts"
-    
     def __init__(self):
         self._device_id = self._generate_device_id()
         self._web_id = self._generate_web_id()
@@ -173,7 +187,7 @@ class DoubaoTTS:
             "real_aid": 497858,
             "pkg_type": "release_version",
             "device_id": self._device_id,
-            "pc_version": "2.50.6",
+            "pc_version": "2.51.7",
             "web_id": self._web_id,
             "tea_uuid": self._web_id,
             "region": "CN",
@@ -213,14 +227,18 @@ class DoubaoTTS:
             return
         
         ws_url = self._build_ws_url(voice, format, rate, pitch)
-        
+        print("ws_url",ws_url)
         headers = {
+            "Accept-Encoding": "gzip, deflate, br, zstd",
             "Accept-Language": "en,zh-CN;q=0.9,zh;q=0.8",
             "Cache-Control": "no-cache",
             "Pragma": "no-cache",
             "Origin": "https://www.doubao.com",
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
-            "Cookie": cookie
+            "Sec-WebSocket-Version": 13,
+            "Sec-WebSocket-Key": generate_16bytes_base64(),
+            "Sec-WebSocket-Extensions": "permessage-deflate; client_max_window_bits"
+            # "Cookie": cookie
         }
         
         try:

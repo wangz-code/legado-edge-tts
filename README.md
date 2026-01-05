@@ -26,9 +26,8 @@ http://127.0.0.1:1233/api/ra?text=helloword&rate=25&voice=zh-CN-YunjianNeural
 # 阅读内朗读引擎配置url
 http://127.0.0.1:1233/api/rap,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}&voice=zh-CN-XiaoxiaoNeural"}
 
-# 豆包无法顺畅朗读 仅供测试 极其容易被拦截, 貌似是频繁会被拦截, 单次长内容约 1000字每次 貌似能长一点不会拦截, 
-#  如果准备两个 key 进行切换 1A,2B 3A,4B 这样 可以大大降低拦截概率, 达到基本能用的地步
-http://127.0.0.1:12333/api/doubao,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}&cookie=sessionid=你的sessionid; sid_guard=你的sid_guard; uid_tt=你的uid_tt"}
+# 豆包更新了, 使用 python 调用貌似无法使用了, fff才玩了2 天
+后端调用提示握手失败, 但是可以在控制台调用,  so  你可以在控制台启动一个 wss 连接到 vps , 然后客户端也连接到 vps 然后通过vps发送指令,  本质就是通过 vps 转发音频绕过所有限制  很简单的代码, 直接让豆包生成即可
 
 # 阅读内朗读引擎配置url 支持对话&旁白切换音色   感谢 https://github.com/retaw106 贡献
 http://127.0.0.1:1233/api/rap2,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}"}
