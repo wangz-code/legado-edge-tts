@@ -3,41 +3,59 @@
 edge 大声朗读微软 TTS 服务, 在阅读 APP 中添加配置语音引擎方式收听微软 TTS / Edge 大声朗读 也可以在浏览器直接访问自动下载的.mp3 文件流
 
 ## 其他说明
-    - min.py 是精简版 仅有一个接口'
+    - min.py 是精简版 仅有一个接口,内存吃紧可以部署这个'
     - EdgeSpeakFetch.kt 是基于[edge-tts](https://github.com/rany2/edge-tts) 通过gpt提取核心逻辑生成的, 可直接在阅读内部集成
-    - DouBaoFetch.kt 是基于[doubao-tts](https://github.com/callmerio/doubao-tts)通过豆包提取核心逻辑生成的, 可直接在阅读内部集成
     - 理论上和rany2/edge-tts 参数都一致, 一荣俱荣一损俱损 EdgeVersion=140.0.3485.14
     - 如果没有VPS部署可以使用 https://github.com/wangz-code/legado-tts 阅读内部集成了Edge大声朗读和豆包
-    - 豆包的这个不要调用太频繁几分钟一次,基本无大碍了 问题不大
 
 
 ## 方式一 直接运行,需要 python 环境
 
 ```sh
 pip3 install Flask edge-tts
-
 python3 main.py
 
-
+# 在阅读内开启 "流式播放音频"  语速最好设置为2.5     >2.5 就读的快， < 2.5 就读的慢
 # `GET接口是 /ra  和 POST接口 /rap
-# 浏览器访问:
 http://127.0.0.1:1233/api/ra?text=helloword&rate=25&voice=zh-CN-YunjianNeural
 
 # 阅读内朗读引擎配置url
 http://127.0.0.1:1233/api/rap,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}&voice=zh-CN-XiaoxiaoNeural"}
-
-# 豆包更新了, 使用 python 调用貌似无法使用了, fff才玩了2 天
-后端调用提示握手失败, 但是可以在控制台调用,  so  你可以在控制台启动一个 wss 连接到 vps , 然后客户端也连接到 vps 然后通过vps发送指令,  本质就是通过 vps 转发音频绕过所有限制  很简单的代码, 直接让豆包生成即可
-
-# 阅读内朗读引擎配置url 支持对话&旁白切换音色   感谢 https://github.com/retaw106 贡献
-http://127.0.0.1:1233/api/rap2,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}"}
-
-# 在阅读内开启 "流式播放音频" 更好
-# 语速最好设置为2.5     >2.5 就读的快， < 2.5 就读的慢
 ```
+## 增加小米 MimoTTS, 还有几天可以白嫖,后续就要收费了 导入方式同Edge,参数相同,voice 和 style 略有不同
+
+```sh
+# 需要自己注册api-key 填写在开头
+http://127.0.0.1:1233/api/rapmimo,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}&voice=Chloe"}
+
+# curl 测试
+curl -X POST http://localhost:1233/api/rapmimo \
+  -F "text=老板，你猜怎么着？我通过了！" \
+  -F "voice=Chloe" \
+  -F "style=明亮、活泼、略带欢快的语调" \
+  -F "rate=30" \
+  --output result.wav
+```
+
+| 音色名 | Voice ID | 语言 | 性别 |
+|--------|----------|------|------|
+| MiMo-默认 | mimo_default | 因部署集群而异，中国集群默认为冰糖，其他集群默认为Mia | — |
+| 冰糖 | 冰糖 | 中文 | 女性 |
+| 茉莉 | 茉莉 | 中文 | 女性 |
+| 苏打 | 苏打 | 中文 | 男性 |
+| 白桦 | 白桦 | 中文 | 男性 |
+| Mia | Mia | 英文 | 女性 |
+| Chloe | Chloe | 英文 | 女性 |
+| Milo | Milo | 英文 | 男性 |
+| Dean | Dean | 英文 | 男性 |
+
+
 
 ## APP添加朗读引擎  📢注意点击页面的"+"号添加 祝大家玩的开心!
 ![detail.png](https://raw.githubusercontent.com/wangz-code/legado-edge-tts/main/demo.gif)
+
+
+
 
 
 ## /rap + /ra 其他可选参数
@@ -66,6 +84,10 @@ http://127.0.0.1:1233/api/rap2,{"method": "POST", "body": "text={{encodeURICompo
 | voice_chat  | zh-CN-YunxiNeural    | 对话音色 |
 | volume_chat | 0                    | 对话音量 |
 
+
+
+
+
 ## 方式二 使用 pm2 运行, 需要 node 环境
 
 ```bash
@@ -76,6 +98,14 @@ npm install pm2 -g
 # 运行,负载均衡, 进程守护：PM2 可以始终保持应用程序运行。当应用程序崩溃时，PM2 可以自动重启它，确保服务的可用性。
 pm2 start "python3 main.py"
 ```
+
+
+curl -X POST http://localhost:1233/api/rapmimo \
+  -F "text=老板，你猜怎么着？我通过了！" \
+  -F "voice=Chloe" \
+  -F "style=明亮、活泼、略带欢快的语调" \
+  -F "rate=30" \
+  --output result.wav
 
 # 基于
 https://github.com/rany2/edge-tts

@@ -5,7 +5,11 @@ import edge_tts
 import io
 import re
 from urllib.parse import unquote
-
+import base64
+import os
+import requests
+MIMO_API_URL = "https://api.xiaomimimo.com/v1/chat/completions"
+MIMO_API_KEY = os.environ.get("MIMO_API_KEY", "替换这个字符串里为你的api-key sk-xxxx")
 app = Flask(__name__)
 
 
@@ -174,6 +178,87 @@ def generate_audiop2():
         download_name="audio.mp3",
     )
 
+
+
+def _mimo_tts(text: str, voice: str, style: str) -> bytes:
+    """调用 MiMo TTS 接口，返回 wav 音频字节"""
+
+    print("MIMO_API_KEY",MIMO_API_KEY)
+    headers = {
+        "api-key": MIMO_API_KEY,
+        "Content-Type": "application/json",
+    }
+    payload = {
+        "model": "mimo-v2.5-tts",
+        "messages": [
+            {"role": "user", "content": style},
+            {"role": "assistant", "content": text},
+        ],
+        "audio": {
+            "format": "wav",
+            "voice": voice,
+        },
+    }
+    resp = requests.post(MIMO_API_URL, headers=headers, json=payload, timeout=120)
+    resp.raise_for_status()
+    result = resp.json()
+    audio_b64 = result["choices"][0]["message"]["audio"]["data"]
+    return base64.b64decode(audio_b64)
+
+
+@app.route("/api/rapmimo", methods=["POST"])
+def generate_audio_mimo():
+    # ── 参数读取 ──────────────────────────────────────────────
+    text = remove_special_characters(request.form.get("text", default=""))
+    voice = request.form.get("voice", default="Chloe")
+    style = request.form.get("style", default="自然、口语化的对话语调")
+    rate = request.form.get("rate", default="25")
+
+    # ── 语速映射 ──────────────────────────────────────────────
+    center_rate = 25
+    try:
+        rate_value = int(rate)
+    except ValueError:
+        rate_value = center_rate
+
+    diff = rate_value - center_rate
+    if diff <= -15:
+        pace = "非常慢的语速"
+    elif diff <= -5:
+        pace = "偏慢的语速"
+    elif diff >= 15:
+        pace = "非常快的语速"
+    elif diff >= 5:
+        pace = "偏快的语速"
+    else:
+        pace = "正常语速"
+
+    cur_style = f"{style}，{pace}"
+
+    # ── 拆分文本，逐段合成 ────────────────────────────────────
+    text_splitted = split_chat(text)
+    audio_stream = io.BytesIO()
+
+    for seg_text, _seg_type in text_splitted:
+        if not seg_text.strip():
+            continue
+
+        try:
+            audio_bytes = _mimo_tts(seg_text, voice, cur_style)
+            audio_stream.write(audio_bytes)
+        except requests.RequestException as e:
+            return {"error": f"MiMo TTS 调用失败: {str(e)}"}, 502
+        except (KeyError, IndexError) as e:
+            return {"error": f"MiMo 返回格式异常: {str(e)}"}, 500
+
+    audio_stream.seek(0)
+
+    return send_file(
+        audio_stream,
+        mimetype="audio/wav",
+        as_attachment=True,
+        download_name="audio.wav",
+    )
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=1233)
