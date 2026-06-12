@@ -23,15 +23,15 @@ http://127.0.0.1:1233/api/rap,{"method": "POST", "body": "text={{encodeURICompon
 
 ```sh
 # 需要自己注册api-key 填写在开头
-http://127.0.0.1:1233/api/mimo,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}&voice=Chloe"}
+http://127.0.0.1:1233/api/mimo,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}&voice=Chloe&style=一位年迈的老先生，说带北方口音的普通话，语速缓慢而沉稳，嗓音略带沙哑和沧桑感"}
 # 流式响应
-http://127.0.0.1:1233/api/mimostream,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}&voice=Chloe"}
+http://127.0.0.1:1233/api/mimostream,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}&voice=苏打&style=一本正经地, 压低嗓音像在密谋"}
 
 # curl 测试
 curl -X POST http://localhost:1233/api/mimo \
-  -F "text=老板，你猜怎么着？我通过了！" \
+  -F "text=这么多年过去了，再走过那条街，心里一下子空了一块。！" \
   -F "voice=Chloe" \
-  -F "style=明亮、活泼、略带欢快的语调" \
+  -F "style=一位年迈的老先生，说带北方口音的普通话，语速缓慢而沉稳，嗓音略带沙哑和沧桑感" \
   -F "rate=30" \
   --output result.wav
 ```
