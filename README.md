@@ -3,7 +3,6 @@
 edge 大声朗读微软 TTS 服务, 在阅读 APP 中添加配置语音引擎方式收听微软 TTS / Edge 大声朗读 也可以在浏览器直接访问自动下载的.mp3 文件流
 
 ## 其他说明
-    - min.py 是精简版 仅有一个接口,内存吃紧可以部署这个'
     - EdgeSpeakFetch.kt 是基于[edge-tts](https://github.com/rany2/edge-tts) 通过gpt提取核心逻辑生成的, 可直接在阅读内部集成
     - 理论上和rany2/edge-tts 参数都一致, 一荣俱荣一损俱损 EdgeVersion=140.0.3485.14
     - 如果没有VPS部署可以使用 https://github.com/wangz-code/legado-tts 阅读内部集成了Edge大声朗读和豆包
@@ -12,13 +11,11 @@ edge 大声朗读微软 TTS 服务, 在阅读 APP 中添加配置语音引擎方
 ## 方式一 直接运行,需要 python 环境
 
 ```sh
-pip3 install Flask edge-tts
-python3 main.py
+# 如果发现接口不能使用 把 edgetts请升级到最新版: pip install -U edge-tts
+pip install aiohttp edge-tts requests openai
+python main.py
 
-# 在阅读内开启 "流式播放音频"  语速最好设置为2.5     >2.5 就读的快， < 2.5 就读的慢
-# `GET接口是 /ra  和 POST接口 /rap
-http://127.0.0.1:1233/api/ra?text=helloword&rate=25&voice=zh-CN-YunjianNeural
-
+# 在阅读内语速最好设置为2.5     >2.5 就读的快， < 2.5 就读的慢
 # 阅读内朗读引擎配置url
 http://127.0.0.1:1233/api/rap,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}&voice=zh-CN-XiaoxiaoNeural"}
 ```
@@ -26,10 +23,12 @@ http://127.0.0.1:1233/api/rap,{"method": "POST", "body": "text={{encodeURICompon
 
 ```sh
 # 需要自己注册api-key 填写在开头
-http://127.0.0.1:1233/api/rapmimo,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}&voice=Chloe"}
+http://127.0.0.1:1233/api/mimo,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}&voice=Chloe"}
+# 流式响应
+http://127.0.0.1:1233/api/mimostream,{"method": "POST", "body": "text={{encodeURIComponent(speakText)}}&rate={{speakSpeed}}&voice=Chloe"}
 
 # curl 测试
-curl -X POST http://localhost:1233/api/rapmimo \
+curl -X POST http://localhost:1233/api/mimo \
   -F "text=老板，你猜怎么着？我通过了！" \
   -F "voice=Chloe" \
   -F "style=明亮、活泼、略带欢快的语调" \
